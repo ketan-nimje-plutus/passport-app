@@ -15,17 +15,14 @@ use App\Http\Controllers\Api\UserApiController;
 |
 */
 
+
 Route::post('/register', [UserApiController::class, 'register']);
 Route::post('/login',  [UserApiController::class, 'login']);
 
 Route::middleware(['auth:api'])->group(function () {
-
-    Route::get('/user', function (Request $request) {
-        return response()->json(['status' => true, 'user' => $request->user()]);
-    });
     Route::get('/get-user-data', [UserApiController::class, 'getUserData']);
-    Route::get('/get-user-details', [UserApiController::class, 'getUserSingleData']);
+    Route::get('/get-user-details/{id}', [UserApiController::class, 'getUserSingleData']);
     Route::post('/save-user', [UserApiController::class, 'saveUserData']);
-    Route::post('/delet-user', [UserApiController::class, 'deleteUserData']);
-    
+    Route::delete('/delet-user/{id}', [UserApiController::class, 'deleteUserData']);
+    Route::post('/user-bulk-delete', [UserApiController::class, 'deleteBulkUserData']);
 });

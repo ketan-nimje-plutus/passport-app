@@ -15,27 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-
-
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('users', [UserController::class, 'index'])->name('users');
-    Route::get('user-data', [UserController::class, 'getUserData'])->name('user-data');
-    Route::get('user-detail/{id?}', [UserController::class, 'getUserSingleData'])->name('user-detail');
-    Route::post('save-user', [UserController::class, 'saveUserData'])->name('save-user');;
-    Route::get('delete-user/{id}', [UserController::class, 'deleteUserData'])->name('delete-user');
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/user-data', [UserController::class, 'getUserData'])->name('user-data');
+    Route::get('/user-detail/{id?}', [UserController::class, 'getUserSingleData'])->name('user-detail');
+    Route::post('/save-user', [UserController::class, 'saveUserData'])->name('save-user');;
+    Route::get('/delete-user/{id}', [UserController::class, 'deleteUserData'])->name('delete-user');
     Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
 });
 
